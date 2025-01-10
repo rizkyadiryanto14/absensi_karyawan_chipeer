@@ -13,4 +13,14 @@ class Auth_model extends CI_Model
 		$this->db->where('username', $username);
 		return $this->db->get('users')->row();
 	}
+
+	/**
+	 * @param $data
+	 * Memasukan Data user dari karyawan kedalam tabel users
+	 * @return mixed
+	 */
+	public function insert($data)
+	{
+		return $this->db->insert('users', $data);
+	}
 }

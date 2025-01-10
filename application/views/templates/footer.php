@@ -40,5 +40,33 @@
 <script src="<?= base_url() ?>assets/dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="<?= base_url() ?>assets/dist/js/pages/dashboard.js"></script>
+
+<script src="https://cdn.datatables.net/2.2.1/js/dataTables.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<?php if ($this->session->flashdata('success')) : ?>
+	<script>
+		Swal.fire({
+			title: 'Sukses!',
+			text: `<?php echo $this->session->flashdata('success'); ?>`,
+			icon: 'success',
+			confirmButtonText: 'OK'
+		});
+	</script>
+<?php endif; ?>
+
+<?php if ($this->session->flashdata('error')) : ?>
+	<script>
+		Swal.fire({
+			title: 'Gagal!',
+			text: `<?php echo $this->session->flashdata('error'); ?>`,
+			icon: 'error',
+			confirmButtonText: 'OK'
+		});
+	</script>
+<?php endif; ?>
+
+
 </body>
 </html>
