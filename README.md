@@ -37,6 +37,8 @@ Tujuan dari algoritma ini adalah untuk melindungi data sensitif (seperti nama, a
 	- **Karakter selain alfabet dan angka**:
 		- Karakter ini dibiarkan tanpa perubahan.
 3. Gabungkan semua karakter terenkripsi untuk membentuk teks akhir.
+4. Hasil Akhir
+   <img src="https://github.com/rizkyadiryanto14/absensi_karyawan_chipeer/blob/main/bentuk_data.png">
 
 ---
 
