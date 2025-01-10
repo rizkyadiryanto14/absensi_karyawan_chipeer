@@ -9,6 +9,8 @@ Tujuan dari algoritma ini adalah untuk melindungi data sensitif (seperti nama, a
 
 ## Algoritma Enkripsi
 
+<img src="https://github.com/rizkyadiryanto14/absensi_karyawan_chipeer/blob/main/algortima%20encrypt%20chipper.png">
+
 ### Langkah-langkah:
 1. **Konversi kunci ke huruf besar**:
 	- Semua huruf pada kunci diubah menjadi huruf kapital untuk konsistensi.
@@ -39,6 +41,8 @@ Tujuan dari algoritma ini adalah untuk melindungi data sensitif (seperti nama, a
 ---
 
 ## Algoritma Dekripsi
+
+<img src="https://github.com/rizkyadiryanto14/absensi_karyawan_chipeer/blob/main/algoritma%20decrypt%20chipper.png">
 
 ### Langkah-langkah:
 1. **Konversi kunci ke huruf besar**:
