@@ -21,6 +21,7 @@
 		<!-- Sidebar Menu -->
 		<nav class="mt-2">
 			<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+				<?php if ($this->session->userdata('role') == 'admin') { ?>
 				<li class="nav-item ">
 					<a href="<?= base_url('dashboard') ?>" class="nav-link">
 						<i class="nav-icon fas fa-tachometer-alt"></i>
@@ -29,7 +30,7 @@
 						</p>
 					</a>
 				</li>
-				<li class="nav-item menu-open">
+				<li class="nav-item">
 					<a href="<?= base_url('admin/karyawan') ?>" class="nav-link">
 						<i class="nav-icon fas fa-tachometer-alt"></i>
 						<p>
@@ -37,6 +38,32 @@
 						</p>
 					</a>
 				</li>
+				<li class="nav-item">
+					<a href="<?= base_url('karyawan/absensi') ?>" class="nav-link">
+						<i class="nav-icon fas fa-book"></i>
+						<p>
+							Absensi
+						</p>
+					</a>
+				</li>
+				<?php }elseif ($this->session->userdata('role') == 'karyawan') { ?>
+					<li class="nav-item ">
+						<a href="<?= base_url('dashboard') ?>" class="nav-link">
+							<i class="nav-icon fas fa-tachometer-alt"></i>
+							<p>
+								Dashboard
+							</p>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="<?= base_url('karyawan/absensi') ?>" class="nav-link">
+							<i class="nav-icon fas fa-book"></i>
+							<p>
+								Absensi
+							</p>
+						</a>
+					</li>
+				<?php } ?>
 
 			</ul>
 		</nav>

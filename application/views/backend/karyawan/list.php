@@ -67,27 +67,27 @@
 				<div class="modal-body">
 					<div class="form-group">
 						<label for="nama">Nama</label>
-						<input type="text" name="nama" id="nama" class="form-control">
+						<input type="text" name="nama" id="nama" class="form-control" required>
 					</div>
 					<div class="form-group">
 						<label for="alamat">Alamat</label>
-						<input type="text" name="alamat" id="alamat" class="form-control">
+						<input type="text" name="alamat" id="alamat" class="form-control" required>
 					</div>
 					<div class="form-group">
 						<label for="tgl_lahir">Tgl Lahir</label>
-						<input type="date" name="tgl_lahir" id="tgl_lahir" class="form-control">
+						<input type="date" name="tgl_lahir" id="tgl_lahir" class="form-control" required>
 					</div>
 					<div class="form-group">
 						<label for="jabatan">Jabatan</label>
-						<input type="text" name="jabatan" id="jabatan" class="form-control">
+						<input type="text" name="jabatan" id="jabatan" class="form-control" required>
 					</div>
 					<div class="form-group">
 						<label for="no_telepon">No.Telepon</label>
-						<input type="text" name="no_telepon" id="no_telepon" class="form-control">
+						<input type="text" name="no_telepon" id="no_telepon" class="form-control" required>
 					</div>
 					<div class="form-group">
 						<label for="no_ktp">No.KTP</label>
-						<input type="text" name="no_ktp" id="no_ktp" class="form-control">
+						<input type="text" name="no_ktp" id="no_ktp" class="form-control" required>
 					</div>
 				</div>
 				<div class="modal-footer">

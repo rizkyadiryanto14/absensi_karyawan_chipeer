@@ -65,3 +65,9 @@ $route['admin/karyawan'] = 'Karyawan';
 $route['karyawan/simpan'] = 'Karyawan/simpan';
 $route['admin/get_data_karyawan'] = 'Karyawan/get_data_karyawan';
 $route['karyawan/verify/(:num)']	= 'Karyawan/verify/$1';
+
+
+$route['karyawan/absensi']		= 'Absensi';
+$route['admin/get_data_absensi'] = 'Absensi/get_data_absensi';
+$route['absensi/submit/(:num)']		= 'Absensi/submit/$1';
+$route['karyawan/delete/(:num)']	= 'Karyawan/delete/$1';

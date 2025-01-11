@@ -1,6 +1,9 @@
 <?php
 
 /**
+ * @author  Rizky Adi Ryanto
+ * @link github.com/rizkyadiryanto14
+ *
  * @property $session
  * @property $input
  * @property $Auth_model
@@ -34,12 +37,12 @@ class Auth extends CI_Controller
 		if ($user) {
 			if (password_verify($password, $user->password)) {
 				$this->session->set_userdata([
-					'user_id' => $user->id,
+					'user_id' => $user->karyawan_id,
 					'username' => $user->username,
 					'role' => $user->role,
 					'logged_in' => true
 				]);
-				redirect('dashboard');
+				redirect(base_url('dashboard'));
 			} else {
 				$this->session->set_flashdata('error', 'Password salah!');
 			}

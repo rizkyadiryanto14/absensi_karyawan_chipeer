@@ -16,6 +16,12 @@ class Karyawan_model extends CI_Model
 		return $this->db->get('karyawan')->result();
 	}
 
+	public function delete($id)
+	{
+		$this->db->where('id', $id);
+		return $this->db->delete('karyawan');
+	}
+
 	/**
 	 * @param $id
 	 * Mengambil data karyawan berdasarkan id

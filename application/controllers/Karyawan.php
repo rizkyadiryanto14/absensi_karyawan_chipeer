@@ -1,10 +1,14 @@
 <?php
 
 /**
+ * @author  Rizky Adi Ryanto
+ * @link github.com/rizkyadiryanto14
+ *
  * @property $Karyawan_model
  * @property $session
  * @property $input
  * @property $Auth_model
+ * @property $form_validation
  */
 
 class Karyawan extends CI_Controller
@@ -16,6 +20,7 @@ class Karyawan extends CI_Controller
 		parent::__construct();
 		$this->load->model('Karyawan_model');
 		$this->load->model('Auth_model');
+		$this->load->library('form_validation');
 	}
 
 	/**
@@ -32,25 +37,35 @@ class Karyawan extends CI_Controller
 	 */
 	public function simpan(): void
 	{
-		$postData = $this->input->post();
+		$this->form_validation->set_rules('nama', 'Nama', 'required|trim');
+		$this->form_validation->set_rules('alamat', 'Alamat', 'required|trim');
+		$this->form_validation->set_rules('tgl_lahir', 'Tanggal Lahir', 'required');
+		$this->form_validation->set_rules('jabatan', 'Jabatan', 'required|trim');
+		$this->form_validation->set_rules('no_telepon', 'Nomor Telepon', 'required|trim');
+		$this->form_validation->set_rules('no_ktp', 'Nomor KTP', 'required|trim');
 
-		// Data yang akan dienkripsi
-		$data = [
-			'nama'       => $this->encryptVigenere($postData['nama'], $this->cipherKey),
-			'alamat'     => $this->encryptVigenere($postData['alamat'], $this->cipherKey),
-			'tgl_lahir'  => $postData['tgl_lahir'],
-			'jabatan'    => $this->encryptVigenere($postData['jabatan'], $this->cipherKey),
-			'no_telepon' => $this->encryptVigenere($postData['no_telepon'], $this->cipherKey),
-			'no_ktp'     => $this->encryptVigenere($postData['no_ktp'], $this->cipherKey),
-		];
-
-
-		// Simpan data ke database
-		$insert = $this->Karyawan_model->simpan($data);
-		if ($insert) {
-			$this->session->set_flashdata('success', 'Data berhasil disimpan');
+		if (!$this->form_validation->run()) {
+			$this->session->set_flashdata('error','Mengisi Semua Field');
 		}else {
-			$this->session->set_flashdata('error', 'Data gagal disimpan');
+			$postData = $this->input->post();
+
+			// Data yang akan dienkripsi
+			$data = [
+				'nama'       => $this->encryptVigenere($postData['nama'], $this->cipherKey),
+				'alamat'     => $this->encryptVigenere($postData['alamat'], $this->cipherKey),
+				'tgl_lahir'  => $postData['tgl_lahir'],
+				'jabatan'    => $this->encryptVigenere($postData['jabatan'], $this->cipherKey),
+				'no_telepon' => $this->encryptVigenere($postData['no_telepon'], $this->cipherKey),
+				'no_ktp'     => $this->encryptVigenere($postData['no_ktp'], $this->cipherKey),
+			];
+
+			// Simpan data ke database
+			$insert = $this->Karyawan_model->simpan($data);
+			if ($insert) {
+				$this->session->set_flashdata('success', 'Data berhasil disimpan');
+			}else {
+				$this->session->set_flashdata('error', 'Data gagal disimpan');
+			}
 		}
 		redirect(base_url('admin/karyawan'));
 	}
@@ -164,23 +179,64 @@ class Karyawan extends CI_Controller
 	public function verify($id_karyawan)
 	{
 		if ($id_karyawan) {
+			// Ambil data karyawan berdasarkan ID
 			$data_karyawan = $this->Karyawan_model->getById($id_karyawan);
-			$data = [
-				'username'		=> $this->decryptVigenere($data_karyawan['nama'], $this->cipherKey),
-				'password'		=> $this->decryptVigenere(password_hash($data_karyawan['username'], PASSWORD_DEFAULT),$this->cipherKey),
-				'role'			=> 'karyawan',
-				'karyawan_id'	=> $data_karyawan['id']
-			];
 
-			$insert = $this->Auth_model->insert($data);
-			if ($insert){
-				$this->session->set_flashdata('success', 'Data berhasil disimpan');
+			// Pengecekan apakah data karyawan ditemukan
+			if (!$data_karyawan) {
+				$this->session->set_flashdata('error', 'Data karyawan tidak ditemukan');
+				redirect(base_url('admin/karyawan'));
+				return;
+			}
+
+			// Cek apakah user sudah ada di database berdasarkan karyawan_id
+			$existing_user = $this->Auth_model->getByKaryawanIdArray($data_karyawan['id']);
+			if ($existing_user) {
+				// Jika user sudah ada
+				$this->session->set_flashdata('error', 'Data user sudah ada di database');
+			} else {
+				// Proses decrypt nama untuk username dan password
+				$username = $this->decryptVigenere($data_karyawan['nama'], $this->cipherKey);
+				$password = password_hash($username, PASSWORD_DEFAULT);
+
+				// Data yang akan dimasukkan
+				$data = [
+					'username'     => $username,
+					'password'     => $password,
+					'role'         => 'karyawan',
+					'karyawan_id'  => $data_karyawan['id']
+				];
+
+				// Insert data ke database
+				$insert = $this->Auth_model->insert($data);
+				if ($insert) {
+					$this->session->set_flashdata('success', 'Data berhasil disimpan');
+				} else {
+					$this->session->set_flashdata('error', 'Data gagal disimpan');
+				}
+			}
+
+			redirect(base_url('admin/karyawan'));
+		} else {
+			// Jika ID karyawan tidak valid
+			$this->session->set_flashdata('error', 'Terdapat Kesalahan Sistem, Data Tidak Ditemukan');
+			redirect(base_url('admin/karyawan'));
+		}
+	}
+
+
+	public function delete($id)
+	{
+		if($id){
+			$delete = $this->Karyawan_model->delete($id);
+			if ($delete){
+				$this->session->set_flashdata('success', 'Data berhasil dihapus');
 			}else{
-				$this->session->set_flashdata('error', 'Data gagal disimpan');
+				$this->session->set_flashdata('error', 'Data gagal dihapus');
 			}
 			redirect(base_url('admin/karyawan'));
-		}else {
-			$this->session->set_flashdata('error', 'Terdapat Kesalahan Sistem, Data Tidak Ditemukan');
+		}else{
+			$this->session->set_flashdata('error', 'Kesalahan Sistem, Data tidak ditemukan');
 		}
 		redirect(base_url('admin/karyawan'));
 	}
