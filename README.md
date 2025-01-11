@@ -7,9 +7,62 @@ Tujuan dari algoritma ini adalah untuk melindungi data sensitif (seperti nama, a
 
 ---
 
-Application
-├── Controllers
-│   ├── Karyawan.php
+---
+
+## Tools yang Dibutuhkan
+
+Berikut adalah daftar tools yang diperlukan untuk menjalankan project ini:
+
+1. **Text Editor**  
+   Disarankan menggunakan **Visual Studio Code (VS Code)** sebagai editor teks.  
+   Unduh di: [https://code.visualstudio.com/](https://code.visualstudio.com/)
+
+2. **XAMPP (Versi PHP 7.4)**  
+   Digunakan sebagai server lokal untuk menjalankan aplikasi PHP dan MySQL.  
+   Unduh di: [XAMPP 7.4.33](https://sourceforge.net/projects/xampp/files/XAMPP%20Windows/7.4.33/xampp-windows-x64-7.4.33-0-VC15-installer.exe/download)
+
+3. **Composer**  
+   Digunakan untuk mengelola dependensi PHP seperti CodeIgniter 3 atau library tambahan.  
+   Unduh di: [https://getcomposer.org/download/](https://getcomposer.org/download/)
+
+---
+
+## Struktur Database
+
+Berikut adalah struktur database yang digunakan dalam project **Absensi Karyawan**:
+
+### Tabel `karyawan`
+| Kolom       | Tipe Data     | Keterangan                             |
+|-------------|---------------|-----------------------------------------|
+| `id`        | INT(11)       | Primary key                            |
+| `nama`      | VARCHAR(255)  | Nama karyawan                          |
+| `alamat`    | TEXT          | Alamat karyawan                        |
+| `tgl_lahir` | DATE          | Tanggal lahir karyawan                 |
+| `jabatan`   | VARCHAR(100)  | Jabatan karyawan                       |
+| `no_telepon`| VARCHAR(15)   | Nomor telepon karyawan                 |
+| `no_ktp`    | VARCHAR(100)  | Nomor KTP karyawan                     |
+
+### Tabel `absensi`
+| Kolom          | Tipe Data       | Keterangan                             |
+|-----------------|-----------------|-----------------------------------------|
+| `id`           | INT(11)         | Primary key                            |
+| `karyawan_id`  | INT(11)         | Foreign key ke tabel `karyawan`        |
+| `jenis_absensi`| ENUM            | Jenis absensi: `Masuk`, `Keluar`, `Izin`, `Sakit` |
+| `waktu_absensi`| DATETIME        | Waktu absensi                          |
+| `keterangan`   | VARCHAR(255)    | Keterangan tambahan                    |
+
+### Tabel `users`
+| Kolom          | Tipe Data       | Keterangan                             |
+|-----------------|-----------------|-----------------------------------------|
+| `id`           | INT(11)         | Primary key                            |
+| `username`     | VARCHAR(50)     | Username login                         |
+| `password`     | VARCHAR(255)    | Password login                         |
+| `role`         | ENUM            | Role: `admin`, `karyawan`              |
+| `karyawan_id`  | INT(11)         | Foreign key ke tabel `karyawan`        |
+| `created_at`   | TIMESTAMP       | Waktu data dibuat                      |
+| `updated_at`   | TIMESTAMP       | Waktu data diperbarui                  |
+
+---
 
 
 ## Algoritma Enkripsi
