@@ -7,6 +7,11 @@ Tujuan dari algoritma ini adalah untuk melindungi data sensitif (seperti nama, a
 
 ---
 
+Application
+├── Controllers
+│   ├── Karyawan.php
+
+
 ## Algoritma Enkripsi
 
 ### Langkah-langkah:
