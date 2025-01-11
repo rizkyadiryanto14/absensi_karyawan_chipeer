@@ -29,7 +29,7 @@ Berikut adalah daftar tools yang diperlukan untuk menjalankan project ini:
 
 ## Struktur Database
 
-Berikut adalah struktur database yang digunakan dalam project **Absensi Karyawan**:
+Berikut adalah struktur database:
 
 ### Tabel `karyawan`
 | Kolom       | Tipe Data     | Keterangan                             |
@@ -174,7 +174,7 @@ Berikut adalah struktur database yang digunakan dalam project **Absensi Karyawan
 ---
 
 ## Catatan
-- **Kunci** harus dirahasiakan karena digunakan untuk proses enkripsi dan dekripsi.
-- Algoritma ini menjaga format data non-alfabet dan non-angka agar tetap tidak berubah.
-- Pastikan input valid sebelum dilakukan enkripsi untuk menjaga integritas data.
+- **Kunci** harus dirahasiakan karena digunakan untuk proses enkripsi dan dekripsi (Terdapat pada controller Karyawan).
+- Algoritma ini menjaga format data non-alfabet dan non-angka agar tetap tidak berubah (Hanya menambahkan dan mengacak posisi dari data).
+- Pastikan input valid sebelum dilakukan enkripsi untuk menjaga integritas data (Form Validation).
 
