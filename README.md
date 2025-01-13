@@ -7,7 +7,6 @@ Tujuan dari algoritma ini adalah untuk melindungi data sensitif (seperti nama, a
 
 ---
 
----
 
 ## Tools yang Dibutuhkan
 
